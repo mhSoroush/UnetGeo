@@ -1,0 +1,59 @@
+verbose: true
+raw_data_input_type: type0
+data_paths:
+  q_set: funsd/q_set/q_set_type0.jsonl 
+  s_set: funsd/s_set/s_set_type0.jsonl
+dataset_path: funsd
+infer_param:
+    -
+model_param:
+  n_classes: 4   # 1 for BG, 3: [header, question, other]
+  input_embedding_components:
+  field_representers:
+    - qa.question
+  fields:
+    - header.header
+    - qa.question
+    - qa.answer
+    - other.other
+  l_max_gen_of_each_parse: 2
+  model_name: RelationTagging
+  n_relation_type: 2
+  precision: 16
+  task: funsd
+  task_lan: eng
+  angle: 0.34 # 20 degree
+  weights:
+    trained: false
+    path: model/trained/###
+toy_data: false
+toy_size: 4
+train_param:
+  accelerator: ddp
+  accumulate_grad_batches: 1
+  augment_coord: false
+  augment_data: false
+  s_set_batch_size: 1
+  q_set_batch_size: 1
+  batch_size_for_test: 2
+  coord_aug_params_keys: '[n_min, n_max, amp_min, amp_max, angle_min, angle_max],  [0,
+    2, -15, 15, -10, 10]'
+  gradient_clip_val: 1.0
+  gradient_clip_algorithm: value
+  initial_coord_aug_params:
+    - - 0
+      - 4
+      - 0
+      - 35
+    - - 0
+      - 1.5
+      - 0
+      - 25
+    - - -10
+      - 10
+  limit_train_batches: 1.0
+  limit_val_batches: 1.0
+  log_every_n_steps: 50
+  max_epochs: 0
+  n_cpus: 12
+  val_check_interval: 1.0
