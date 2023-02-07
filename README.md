@@ -142,6 +142,11 @@
     "img_url": null
   }
 ```
+### Support Set (`s_set`)
+- Few shot learning is a technique to work with less number of training examples. 
+- It uses `support_set` as template to predict `query_set` examples. 
+- In this project, `s_set` was only loaded, but not used.        
+
 ---
 
 ## U-Net
